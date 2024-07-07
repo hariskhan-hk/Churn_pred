@@ -4,74 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telecom Customer Churn Prediction</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        form {
-            display: grid;
-            gap: 10px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="number"], select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .output {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e9e9e9;
-            border-radius: 4px;
-        }
-        #autoFillBtn {
-            background-color: #008CBA;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        #autoFillBtn:hover {
-            background-color: #007B9A;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Telecom Customer Churn Prediction</h1>
-        <button id="autoFillBtn" onclick="autoFillInputs()">Auto Fill with Sample Data</button>
+        <div class="button-container">
+            <input type="button" value="Auto Fill with Sample Data" id="autoFillBtn" class="center-btn" onclick="autoFillInputs()">
+            <input type="button" value="Show Model Results" id="showResultsBtn" class="center-btn" onclick="window.location.href='/show_accuracies'">
+        </div>
         <form action="/" method="POST">
             <label for="model_name">Select Model:</label>
             <select name="model_name" id="model_name">
@@ -82,132 +24,135 @@
             </select>
 
             <label for="query1">Senior Citizen (0/1):</label>
-            <input type="number" id="query1" name="query1" min="0" max="1" required>
+            <input type="number" id="query1" name="query1" min="0" max="1" value="{{ request.form['query1'] if request.form.get('query1') else '' }}" required>
 
             <label for="query2">Monthly Charges (numeric):</label>
-            <input type="number" id="query2" name="query2" step="0.01" required>
+            <input type="number" id="query2" name="query2" step="0.01" value="{{ request.form['query2'] if request.form.get('query2') else '' }}" required>
 
             <label for="query3">Total Charges (numeric):</label>
-            <input type="number" id="query3" name="query3" step="0.01" required>
+            <input type="number" id="query3" name="query3" step="0.01" value="{{ request.form['query3'] if request.form.get('query3') else '' }}" required>
 
             <label for="query4">Gender Male (0/1):</label>
-            <input type="number" id="query4" name="query4" min="0" max="1" required>
+            <input type="number" id="query4" name="query4" min="0" max="1" value="{{ request.form['query4'] if request.form.get('query4') else '' }}" required>
 
             <label for="query5">Partner No (0/1):</label>
-            <input type="number" id="query5" name="query5" min="0" max="1" required>
+            <input type="number" id="query5" name="query5" min="0" max="1" value="{{ request.form['query5'] if request.form.get('query5') else '' }}" required>
 
             <label for="query6">Partner Yes (0/1):</label>
-            <input type="number" id="query6" name="query6" min="0" max="1" required>
+            <input type="number" id="query6" name="query6" min="0" max="1" value="{{ request.form['query6'] if request.form.get('query6') else '' }}" required>
 
             <label for="query7">Dependents Yes (0/1):</label>
-            <input type="number" id="query7" name="query7" min="0" max="1" required>
+            <input type="number" id="query7" name="query7" min="0" max="1" value="{{ request.form['query7'] if request.form.get('query7') else '' }}" required>
 
             <label for="query8">Phone Service Yes (0/1):</label>
-            <input type="number" id="query8" name="query8" min="0" max="1" required>
+            <input type="number" id="query8" name="query8" min="0" max="1" value="{{ request.form['query8'] if request.form.get('query8') else '' }}" required>
 
             <label for="query9">Multiple Lines No phone service (0/1):</label>
-            <input type="number" id="query9" name="query9" min="0" max="1" required>
+            <input type="number" id="query9" name="query9" min="0" max="1" value="{{ request.form['query9'] if request.form.get('query9') else '' }}" required>
 
             <label for="query10">Multiple Lines Yes (0/1):</label>
-            <input type="number" id="query10" name="query10" min="0" max="1" required>
+            <input type="number" id="query10" name="query10" min="0" max="1" value="{{ request.form['query10'] if request.form.get('query10') else '' }}" required>
 
             <label for="query11">Internet Service DSL (0/1):</label>
-            <input type="number" id="query11" name="query11" min="0" max="1" required>
+            <input type="number" id="query11" name="query11" min="0" max="1" value="{{ request.form['query11'] if request.form.get('query11') else '' }}" required>
 
             <label for="query12">Internet Service Fiber optic (0/1):</label>
-            <input type="number" id="query12" name="query12" min="0" max="1" required>
+            <input type="number" id="query12" name="query12" min="0" max="1" value="{{ request.form['query12'] if request.form.get('query12') else '' }}" required>
 
             <label for="query13">Internet Service No (0/1):</label>
-            <input type="number" id="query13" name="query13" min="0" max="1" required>
+            <input type="number" id="query13" name="query13" min="0" max="1" value="{{ request.form['query13'] if request.form.get('query13') else '' }}" required>
 
             <label for="query14">Online Security No internet service (0/1):</label>
-            <input type="number" id="query14" name="query14" min="0" max="1" required>
+            <input type="number" id="query14" name="query14" min="0" max="1" value="{{ request.form['query14'] if request.form.get('query14') else '' }}" required>
 
             <label for="query15">Online Security Yes (0/1):</label>
-            <input type="number" id="query15" name="query15" min="0" max="1" required>
+            <input type="number" id="query15" name="query15" min="0" max="1" value="{{ request.form['query15'] if request.form.get('query15') else '' }}" required>
 
             <label for="query16">Online Backup No (0/1):</label>
-            <input type="number" id="query16" name="query16" min="0" max="1" required>
+            <input type="number" id="query16" name="query16" min="0" max="1" value="{{ request.form['query16'] if request.form.get('query16') else '' }}" required>
 
             <label for="query17">Online Backup Yes (0/1):</label>
-            <input type="number" id="query17" name="query17" min="0" max="1" required>
+            <input type="number" id="query17" name="query17" min="0" max="1" value="{{ request.form['query17'] if request.form.get('query17') else '' }}" required>
 
             <label for="query18">Device Protection No internet service (0/1):</label>
-            <input type="number" id="query18" name="query18" min="0" max="1" required>
+            <input type="number" id="query18" name="query18" min="0" max="1" value="{{ request.form['query18'] if request.form.get('query18') else '' }}" required>
 
             <label for="query19">Tech Support Yes (0/1):</label>
-            <input type="number" id="query19" name="query19" min="0" max="1" required>
+            <input type="number" id="query19" name="query19" min="0" max="1" value="{{ request.form['query19'] if request.form.get('query19') else '' }}" required>
 
             <label for="query20">Streaming TV No (0/1):</label>
-            <input type="number" id="query20" name="query20" min="0" max="1" required>
+            <input type="number" id="query20" name="query20" min="0" max="1" value="{{ request.form['query20'] if request.form.get('query20') else '' }}" required>
 
             <label for="query21">Streaming TV Yes (0/1):</label>
-            <input type="number" id="query21" name="query21" min="0" max="1" required>
+            <input type="number" id="query21" name="query21" min="0" max="1" value="{{ request.form['query21'] if request.form.get('query21') else '' }}" required>
 
             <label for="query22">Streaming Movies No (0/1):</label>
-            <input type="number" id="query22" name="query22" min="0" max="1" required>
+            <input type="number" id="query22" name="query22" min="0" max="1" value="{{ request.form['query22'] if request.form.get('query22') else '' }}" required>
 
             <label for="query23">Streaming Movies Yes (0/1):</label>
-            <input type="number" id="query23" name="query23" min="0" max="1" required>
+            <input type="number" id="query23" name="query23" min="0" max="1" value="{{ request.form['query23'] if request.form.get('query23') else '' }}" required>
 
             <label for="query24">Contract Month-to-month (0/1):</label>
-            <input type="number" id="query24" name="query24" min="0" max="1" required>
+            <input type="number" id="query24" name="query24" min="0" max="1" value="{{ request.form['query24'] if request.form.get('query24') else '' }}" required>
 
             <label for="query25">Contract One year (0/1):</label>
-            <input type="number" id="query25" name="query25" min="0" max="1" required>
+            <input type="number" id="query25" name="query25" min="0" max="1" value="{{ request.form['query25'] if request.form.get('query25') else '' }}" required>
 
             <label for="query26">Contract Two year (0/1):</label>
-            <input type="number" id="query26" name="query26" min="0" max="1" required>
+            <input type="number" id="query26" name="query26" min="0" max="1" value="{{ request.form['query26'] if request.form.get('query26') else
+
+ '' }}" required>
 
             <label for="query27">Paperless Billing No (0/1):</label>
-            <input type="number" id="query27" name="query27" min="0" max="1" required>
+            <input type="number" id="query27" name="query27" min="0" max="1" value="{{ request.form['query27'] if request.form.get('query27') else '' }}" required>
 
             <label for="query28">Payment Method Bank transfer (0/1):</label>
-            <input type="number" id="query28" name="query28" min="0" max="1" required>
+            <input type="number" id="query28" name="query28" min="0" max="1" value="{{ request.form['query28'] if request.form.get('query28') else '' }}" required>
 
             <label for="query29">Payment Method Credit card (0/1):</label>
-            <input type="number" id="query29" name="query29" min="0" max="1" required>
+            <input type="number" id="query29" name="query29" min="0" max="1" value="{{ request.form['query29'] if request.form.get('query29') else '' }}" required>
 
             <label for="query30">Payment Method Electronic check (0/1):</label>
-            <input type="number" id="query30" name="query30" min="0" max="1" required>
+            <input type="number" id="query30" name="query30" min="0" max="1" value="{{ request.form['query30'] if request.form.get('query30') else '' }}" required>
 
             <label for="query31">Tenure Group 1-12 months (0/1):</label>
-            <input type="number" id="query31" name="query31" min="0" max="1" required>
+            <input type="number" id="query31" name="query31" min="0" max="1" value="{{ request.form['query31'] if request.form.get('query31') else '' }}" required>
 
             <label for="query32">Tenure Group 13-24 months (0/1):</label>
-            <input type="number" id="query32" name="query32" min="0" max="1" required>
+            <input type="number" id="query32" name="query32" min="0" max="1" value="{{ request.form['query32'] if request.form.get('query32') else '' }}" required>
 
             <label for="query33">Tenure Group 25-36 months (0/1):</label>
-            <input type="number" id="query33" name="query33" min="0" max="1" required>
+            <input type="number" id="query33" name="query33" min="0" max="1" value="{{ request.form['query33'] if request.form.get('query33') else '' }}" required>
 
             <label for="query34">Tenure Group 37-48 months (0/1):</label>
-            <input type="number" id="query34" name="query34" min="0" max="1" required>
+            <input type="number" id="query34" name="query34" min="0" max="1" value="{{ request.form['query34'] if request.form.get('query34') else '' }}" required>
 
             <label for="query35">Tenure Group 49-60 months (0/1):</label>
-            <input type="number" id="query35" name="query35" min="0" max="1" required>
+            <input type="number" id="query35" name="query35" min="0" max="1" value="{{ request.form['query35'] if request.form.get('query35') else '' }}" required>
 
             <label for="query36">Tenure Group 61-72 months (0/1):</label>
-            <input type="number" id="query36" name="query36" min="0" max="1" required>
+            <input type="number" id="query36" name="query36" min="0" max="1" value="{{ request.form['query36'] if request.form.get('query36') else '' }}" required>
 
             <input type="submit" value="Predict">
         </form>
 
         {% if output1 %}
-        <div class="output">
-            <h2>Prediction Result:</h2>
-            <p>{{ output1 }}</p>
-            <p>{{ output2 }}</p>
-        </div>
+            <div class="output">
+                <h2>Prediction Result:</h2>
+                <p>{{ output1 }}</p>
+                <p>{{ output2 }}</p>
+            </div>
         {% endif %}
     </div>
 
     <script>
         function autoFillInputs() {
-            const sampleInput = [0,99.65,820.5,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0];
+            const sampleInput = [0, 56.15, 3487.95, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1];
             for (let i = 1; i <= 36; i++) {
-                document.getElementById('query' + i).value = sampleInput[i-1];
+                document.getElementById('query' + i).value = sampleInput[i - 1];
             }
         }
     </script>
 </body>
 </html>
+

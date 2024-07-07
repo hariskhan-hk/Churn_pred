@@ -1,7 +1,11 @@
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 import pickle
 import os
+from imblearn.combine import SMOTEENN
+from imblearn.over_sampling import SMOTE
 
 app = Flask(__name__)
 
@@ -103,6 +107,40 @@ def predict():
                         query35 = request.form['query35'],
                         query36 = request.form['query36']
     )
+
+@app.route("/show_accuracies")
+def show_accuracies():
+    # Load your dataset
+    df = pd.read_csv('/home/shoaib/Code/Churn_pred/app/data/Cleaned_Telecom_Dataset_New.csv')
+    df = df.drop('Unnamed: 0', axis=1)  
+
+    # Prepare your features and target
+    X = df.drop('Churn', axis=1)
+    y = df['Churn']
+    
+    # Scale the features
+    X_scaled = scaler.fit_transform(X)
+    
+    # Apply SMOTEENN to the entire dataset
+    sm = SMOTEENN(smote=SMOTE(random_state=42))
+    X_resampled, y_resampled = sm.fit_resample(X_scaled, y)
+    
+    # Split the resampled data
+    X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
+    
+    accuracies = {}
+    
+    # Calculate accuracy for each model
+    for model_name in ['decision_tree_smote_model', 'knn_smote_model', 'logistic_regression_smote_model', 'random_forest_smote_model']:
+        model_path = os.path.join(models_dir, f'{model_name}.pkl')
+        model = pickle.load(open(model_path, "rb"))
+        
+        # Predict on resampled test data
+        y_pred = model.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred) * 100
+        accuracies[model_name] = accuracy
+    
+    return render_template('results.html', accuracies=accuracies)
 
 if __name__ == "__main__":
     app.run(debug=True)

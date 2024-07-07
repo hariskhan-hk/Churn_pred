@@ -55,13 +55,16 @@ These instructions will get you a copy of the project up and running on your loc
 ### Running the App
 
 1. **Set the `FLASK_APP` environment variable:**
+   ```bash
+   cd app
+   ```
 
    ```bash
    export FLASK_APP=app 
    ```
    * **Note:** On Windows, use `set FLASK_APP=app` instead.
 
-2. **Run the Flask development server:**
+3. **Run the Flask development server:**
 
    ```bash
    flask run
@@ -94,9 +97,9 @@ flask-app/
 
 * **`app/`**: Contains the Flask application code.
     * **`__init__.py`**: Initializes the Flask app.
-    * **`data/`**:  May hold sample data or data files used by the app.
-    * **`models/`**: Typically stores database models or data structures.
-    * **`notebooks/`**: Likely contains Jupyter notebooks used for exploration or development.
-    * **`static/`**:  Holds static assets like CSS, JavaScript, and images.
+    * **`data/`**:  hold data files used by the app.
+    * **`models/`**: stores trained models
+    * **`notebooks/`**: contains Jupyter notebooks used for EDA or training.
+    * **`static/`**:  Holds static assets.
     * **`templates/`**: Contains HTML templates for the app's views.
 

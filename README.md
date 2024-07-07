@@ -94,9 +94,9 @@ flask-app/
 
 * **`app/`**: Contains the Flask application code.
     * **`__init__.py`**: Initializes the Flask app.
-    * **`data/`**:  May hold sample data or data files used by the app.
-    * **`models/`**: Typically stores database models or data structures.
-    * **`notebooks/`**: Likely contains Jupyter notebooks used for exploration or development.
-    * **`static/`**:  Holds static assets like CSS, JavaScript, and images.
+    * **`data/`**:  hold data files used by the app.
+    * **`models/`**: stores trained models
+    * **`notebooks/`**: contains Jupyter notebooks used for EDA or training.
+    * **`static/`**:  Holds static assets.
     * **`templates/`**: Contains HTML templates for the app's views.
 

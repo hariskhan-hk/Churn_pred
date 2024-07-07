@@ -25,9 +25,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 3. **Checkout the correct branch**
 
-  ```bash
-  git checkout Flask-app
-  ```
+   ```bash
+   git checkout Flask-app
+   ```
 
 4. **Create a virtual environment (recommended):**
 

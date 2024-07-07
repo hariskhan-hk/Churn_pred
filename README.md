@@ -23,13 +23,19 @@ These instructions will get you a copy of the project up and running on your loc
    cd <project-directory>
    ```
 
-3. **Create a virtual environment (recommended):**
+3. **Checkout the correct branch**
+
+  ```bash
+  git checkout Flask-app
+  ```
+
+4. **Create a virtual environment (recommended):**
 
    ```bash
    python3 -m venv env 
    ```
 
-4. **Activate the virtual environment:**
+5. **Activate the virtual environment:**
 
    * Linux/macOS:
      ```bash
@@ -40,7 +46,7 @@ These instructions will get you a copy of the project up and running on your loc
      env\Scripts\activate
      ```
 
-5. **Install the dependencies:**
+6. **Install the dependencies:**
 
    ```bash
    pip install -r requirements.txt

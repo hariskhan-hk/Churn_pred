@@ -1,4 +1,3 @@
-```markdown
 # Flask App 
 
 ## Getting Started

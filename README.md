@@ -55,13 +55,16 @@ These instructions will get you a copy of the project up and running on your loc
 ### Running the App
 
 1. **Set the `FLASK_APP` environment variable:**
+   ```bash
+   cd app
+   ```
 
    ```bash
    export FLASK_APP=app 
    ```
    * **Note:** On Windows, use `set FLASK_APP=app` instead.
 
-2. **Run the Flask development server:**
+3. **Run the Flask development server:**
 
    ```bash
    flask run

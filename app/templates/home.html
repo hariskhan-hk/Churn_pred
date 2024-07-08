@@ -140,14 +140,13 @@
             <div class="output">
                 <h2>Prediction Result:</h2>
                 <p>{{ output1 }}</p>
-                <p>{{ output2 }}</p>
             </div>
         {% endif %}
     </div>
 
     <script>
         function autoFillInputs() {
-            const sampleInput = [0, 56.15, 3487.95, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1];
+            const sampleInput = [0,103.7,5036.3,1,1,0,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0];
             for (let i = 1; i <= 36; i++) {
                 document.getElementById('query' + i).value = sampleInput[i - 1];
             }

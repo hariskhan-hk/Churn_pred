@@ -64,12 +64,10 @@ def predict():
 
     if single == 1:
         o1 = "This customer is likely to be churned!!"
-        o2 = "Confidence: {:.2f}%".format(probability[0]*100)
     else:
         o1 = "This customer is likely to continue!!"
-        o2 = "Confidence: {:.2f}%".format(probability[0]*100)
 
-    return render_template('home.html', output1=o1, output2=o2, 
+    return render_template('home.html', output1=o1,
                        query1 = request.form['query1'],
                         query2 = request.form['query2'],
                         query3 = request.form['query3'],

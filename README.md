@@ -51,6 +51,7 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    pip install -r requirements.txt
    ```
+   * **Note:** If taking a lot of time, move on to the next step and then install libraries one by one as required.
 
 ### Running the App
 

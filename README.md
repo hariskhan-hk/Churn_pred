@@ -32,7 +32,7 @@ These instructions will get you a copy of the project up and running on your loc
 4. **Create a virtual environment (recommended):**
 
    ```bash
-   python3 -m venv env 
+   python -m venv env 
    ```
 
 5. **Activate the virtual environment:**
